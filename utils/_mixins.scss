@@ -1,0 +1,56 @@
+//
+// Name: Mixins
+//
+
+// Clearfix
+@mixin clearfix {
+  zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: '';
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+//
+// Sticky footer
+//
+
+// @include sticky-footer(50px, "#main", "#footer", "#main_spacer");
+// <section id="main" class="wrapper">
+//   <div id="main_spacer"></div>
+// </section>
+// <footer id="footer">
+// </footer>
+
+
+@mixin sticky-footer(
+$footerHeight,
+$mainSelector,
+$footerSelector,
+$mainSpacer: false ) {
+
+  #{$mainSelector} {
+    clear: both;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin-bottom: -$footerHeight;
+    @if ($mainSpacer == false) {
+      padding-bottom: $footerHeight;
+    }
+  }
+
+  #{$mainSpacer} {
+    height: $footerHeight;
+  }
+
+  #{$footerSelector} {
+    clear: both;
+    position: relative;
+    height: $footerHeight;
+  }
+}

@@ -1,0 +1,19 @@
+//
+// Name: Project variables
+//
+@import "../base/typography";
+
+//color
+$white: #fff;
+$black: #000;
+
+//font
+$fontFamily: $sansFontFamily;
+$fontSize: 14px;
+$lineHeight: 1.3em;
+
+//grid system
+$gridType: normal;
+$columnCount: 24px;
+$columnWidth: 30px;
+$columnGap: 10px;

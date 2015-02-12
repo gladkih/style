@@ -1,0 +1,67 @@
+// $grid — fluid(%) or normal(px)
+// $columnCount
+//
+
+@mixin grid($grid,
+$columnCount: false,
+$columnWidth: false,
+$columnGap: false) {
+
+  $gridWidth: $columnWidth * $columnCount + $columnGap * ($columnCount - 1);
+  $gap: $columnGap;
+  $width: $columnWidth;
+
+  @if $grid == fluid {
+    $width: $columnWidth * 100 / $gridWidth;
+    $gap: $columnGap / $gridWidth * 100%;
+  }
+  // Sets up basic grid floating and margin.
+  .column {
+    float: left;
+    +.column {
+      margin-left: $gap;
+    }
+  }
+
+  @for $i from 1 through $columnCount {
+    // Use these classes to set the width of a column.
+    .#{col}-#{$i} {
+      @if $i == 1 {
+        width: $width;
+      } @else {
+        @if $grid == fluid {
+          width: ($columnWidth * $i + $columnGap * ($i - 1)) * 100% / $gridWidth;
+        } @else {
+          width: ($columnWidth * $i + $columnGap * ($i - 1)) + 0px;
+        }
+      }
+
+      @if $i == $columnCount {
+        margin-right: 0;
+      }
+    }
+  }
+
+  @for $i from 1 to $columnCount {
+//    .#{span}-#{$i} {
+//      @extend .column;
+//    }
+    // Add these to a column to append empty cols.
+    .#{append}-#{$i} {
+      @if $i == 1 {
+        padding-right: $width + $gap;
+      } @else {
+        padding-right: ($width + $gap) * $i;
+      }
+    }
+    // Add these to a column to prepend empty cols.
+    .#{prepend}-#{$i} {
+      @if $i == 1 {
+        padding-left: $width + $gap;
+      } @else {
+        padding-left: ($width + $gap) * $i;
+      }
+    }
+  }
+
+}
